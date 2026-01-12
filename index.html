@@ -7,7 +7,55 @@
   <!-- Google Font -->
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@600&display=swap" rel="stylesheet">
 
-  <link rel="stylesheet" href="style.css">
+  <style>
+    body {
+      margin: 0;
+      height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      background: #f2f4f8;
+      font-family: Arial, sans-serif;
+    }
+
+    .container {
+      width: 100%;
+      max-width: 420px;
+      text-align: center;
+    }
+
+    .title {
+      font-family: 'Poppins', sans-serif;
+      color: navy;
+      font-size: 36px;
+      margin-bottom: 25px;
+    }
+
+    .card {
+      background: white;
+      padding: 25px;
+      border-radius: 8px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+    }
+
+    input, button {
+      width: 100%;
+      padding: 10px;
+      margin: 8px 0;
+    }
+
+    button {
+      background-color: #1f3c88;
+      color: white;
+      border: none;
+      cursor: pointer;
+    }
+
+    #map {
+      height: 250px;
+      margin-top: 15px;
+    }
+  </style>
 
   <!-- Google Maps -->
   <script src="https://maps.googleapis.com/maps/api/js?key=YOUR_GOOGLE_MAPS_API_KEY"></script>
@@ -18,31 +66,20 @@
 
     <h1 class="title">Speak-Safe</h1>
 
-    <!-- LOGIN / SIGNUP -->
-    <div id="authBox" class="card">
-      <input id="name" placeholder="Name">
-      <input id="email" placeholder="Email">
-      <input id="password" type="password" placeholder="Password">
-      <input id="self" placeholder="Self Contact">
-      <input id="parent" placeholder="Parent Contact">
-      <input id="alternate" placeholder="Alternate Contact">
-      <input id="contacts" placeholder="Other contacts (comma separated)">
-      <button onclick="signupUser()">Create Account</button>
-      <button onclick="loginUser()">Login</button>
-    </div>
+    <div class="card">
+      <h3>🎙️ Fake Podcast Running</h3>
 
-    <!-- PODCAST -->
-    <div id="podcastBox" class="card" style="display:none;">
-      <h3>🎙️ Live Podcast Running</h3>
       <input id="speech" placeholder="Type simulated speech">
+
       <button onclick="checkKeyword()">Send</button>
       <button onclick="stopPodcast()">Stop Podcast</button>
+
       <div id="map"></div>
     </div>
 
   </div>
 
-  <!-- Main App Logic -->
-  <script type="module" src="app.js"></script>
+  <script src="app.js"></script>
 </body>
 </html>
+
