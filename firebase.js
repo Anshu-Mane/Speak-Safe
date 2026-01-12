@@ -1,7 +1,15 @@
-// Import Firebase SDKs
+// Firebase SDKs
 import { initializeApp } from "firebase/app";
-import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword } from "firebase/auth";
-import { getFirestore, doc, setDoc } from "firebase/firestore";
+import {
+  getAuth,
+  createUserWithEmailAndPassword,
+  signInWithEmailAndPassword
+} from "firebase/auth";
+import {
+  getFirestore,
+  doc,
+  setDoc
+} from "firebase/firestore";
 
 // Firebase configuration (YOUR REAL CONFIG)
 const firebaseConfig = {
@@ -12,14 +20,15 @@ const firebaseConfig = {
   messagingSenderId: "1071683745134",
   appId: "1:1071683745134:web:1359a9a54297bdf4e7bd7f"
 };
+
 // Initialize Firebase
 const app = initializeApp(firebaseConfig);
 
-// Initialize services
+// Export services
 export const auth = getAuth(app);
 export const db = getFirestore(app);
 
-// ---------------- SIGNUP ----------------
+// ---------- SIGNUP ----------
 export async function signup(
   name,
   email,
@@ -29,39 +38,25 @@ export async function signup(
   alternate,
   contacts
 ) {
-  try {
-    const cred = await createUserWithEmailAndPassword(auth, email, password);
+  const cred = await createUserWithEmailAndPassword(auth, email, password);
 
-    const contactArray = contacts.split(",");
+  const contactArray = contacts.split(",");
 
-    await setDoc(doc(db, "users", cred.user.uid), {
-      name: name,
-      email: email,
-      self: self,
-      parent: parent,
-      alternate: alternate,
-      contacts: contactArray,
-      active: false
-    });
+  await setDoc(doc(db, "users", cred.user.uid), {
+    name,
+    email,
+    self,
+    parent,
+    alternate,
+    contacts: contactArray,
+    active: false
+  });
 
-    alert("Account created successfully ✅");
-
-  } catch (error) {
-    alert(error.message);
-  }
+  return true;
 }
 
-// ---------------- LOGIN ----------------
+// ---------- LOGIN ----------
 export async function login(email, password) {
-  try {
-    await signInWithEmailAndPassword(auth, email, password);
-
-    document.getElementById("authBox").style.display = "none";
-    document.getElementById("podcastBox").style.display = "block";
-
-    startLocation(); // your function
-
-  } catch (error) {
-    alert(error.message);
-  }
+  await signInWithEmailAndPassword(auth, email, password);
+  return true;
 }
