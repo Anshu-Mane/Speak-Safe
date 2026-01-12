@@ -1,18 +1,47 @@
 body {
-  font-family: Arial;
-  background: #f2f2f2;
-  padding: 30px;
+  margin: 0;
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: #f2f4f8;
+  font-family: Arial, sans-serif;
+}
+
+.container {
+  width: 100%;
+  max-width: 420px;
+  text-align: center;
+}
+
+.title {
+  font-family: 'Poppins', sans-serif;
+  color: navy;
+  font-size: 36px;
+  margin-bottom: 25px;
+}
+
+.card {
+  background: white;
+  padding: 25px;
+  border-radius: 8px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.1);
 }
 
 input, button {
-  display: block;
-  margin: 10px 0;
+  width: 100%;
   padding: 10px;
-  width: 320px;
+  margin: 8px 0;
 }
 
 button {
-  background: #1f3c88;
+  background-color: #1f3c88;
   color: white;
   border: none;
+  cursor: pointer;
+}
+
+#map {
+  height: 250px;
+  margin-top: 15px;
 }
