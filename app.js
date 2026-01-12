@@ -71,3 +71,33 @@ function checkKeyword() {
     alert("Friend: Are you almost here?");
   }
 }
+/*Alert genration */
+function sendAlert() {
+  onAuthStateChanged(auth, async (user) => {
+    if (!user) {
+      alert("User not logged in");
+      return;
+    }
+
+    if (currentLat === null || currentLng === null) {
+      alert("Location not available yet");
+      return;
+    }
+
+    const mapLink =
+      `https://maps.google.com/?q=${currentLat},${currentLng}`;
+
+    await addDoc(collection(db, "alerts"), {
+      userId: user.uid,
+      location: mapLink,
+      time: new Date(),
+      status: "triggered"
+    });
+
+    alert(
+      "🚨 ALERT SENT\n\n" +
+      "Location shared with saved contacts\n\n" +
+      mapLink
+    );
+  });
+}
