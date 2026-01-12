@@ -111,3 +111,10 @@ function stopPodcast() {
     alert("Glad you’re safe 💚");
   }
 }
+/*Expose funtions to html*/
+window.signupUser = signupUser;
+window.loginUser = loginUser;
+window.startLocation = startLocation;
+window.startPodcast = startPodcast;
+window.checkKeyword = checkKeyword;
+window.stopPodcast = stopPodcast;
