@@ -18,3 +18,35 @@ const app = initializeApp(firebaseConfig);
 // Initialize services
 export const auth = getAuth(app);
 export const db = getFirestore(app);
+
+// ---------------- SIGNUP ----------------
+export async function signup(
+  name,
+  email,
+  password,
+  self,
+  parent,
+  alternate,
+  contacts
+) {
+  try {
+    const cred = await createUserWithEmailAndPassword(auth, email, password);
+
+    const contactArray = contacts.split(",");
+
+    await setDoc(doc(db, "users", cred.user.uid), {
+      name: name,
+      email: email,
+      self: self,
+      parent: parent,
+      alternate: alternate,
+      contacts: contactArray,
+      active: false
+    });
+
+    alert("Account created successfully ✅");
+
+  } catch (error) {
+    alert(error.message);
+  }
+}
