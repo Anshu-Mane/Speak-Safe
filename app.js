@@ -56,3 +56,18 @@ function startPodcast() {
   document.getElementById("podcastStatus").innerText =
     "🎧 Fake podcast started… Talk naturally.";
 }
+/*Keyword Detection */
+function checkKeyword() {
+  const speechText =
+    document.getElementById("speech").value.toLowerCase();
+
+  if (
+    speechText.includes("help") ||
+    speechText.includes("red") ||
+    speechText.includes("send")
+  ) {
+    sendAlert();
+  } else {
+    alert("Friend: Are you almost here?");
+  }
+}
