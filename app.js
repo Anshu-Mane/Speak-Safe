@@ -51,3 +51,8 @@ function startLocation() {
     }
   );
 }
+/*Fake Podcast*/
+function startPodcast() {
+  document.getElementById("podcastStatus").innerText =
+    "🎧 Fake podcast started… Talk naturally.";
+}
