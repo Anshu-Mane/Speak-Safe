@@ -101,3 +101,13 @@ function sendAlert() {
     );
   });
 }
+/*Podcast stop logic*/
+function stopPodcast() {
+  const safe = confirm("Have you reached safely?");
+
+  if (!safe) {
+    sendAlert();
+  } else {
+    alert("Glad you’re safe 💚");
+  }
+}
