@@ -2,9 +2,13 @@
 <html>
 <head>
   <title>Speak-Safe</title>
+
+  <!-- Google Font -->
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@600&display=swap" rel="stylesheet">
+
   <link rel="stylesheet" href="style.css">
 
-   <!-- Firebase SDKs -->
+  <!-- Firebase SDKs -->
   <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
   <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-auth-compat.js"></script>
   <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-firestore-compat.js"></script>
@@ -13,32 +17,34 @@
   <script src="https://maps.googleapis.com/maps/api/js?key=YOUR_GOOGLE_MAPS_API_KEY"></script>
 </head>
 
-
 <body>
 
-<h1>Speak-Safe</h1>
+<div class="container">
 
-<!-- LOGIN / SIGNUP -->
-<div id="authBox">
-  <input id="name" placeholder="Name">
-  <input id="email" placeholder="Email">
-  <input id="password" type="password" placeholder="Password">
-  <input id="self" placeholder="Self Contact">
-  <input id="parent" placeholder="Parent Contact">
-  <input id="alternate" placeholder="Alternate Contact">
-  <input id="contacts" placeholder="Other contacts (comma separated)">
-  <button onclick="signup()">Create Account</button>
-  <button onclick="login()">Login</button>
-</div>
+  <h1 class="title">Speak-Safe</h1>
 
+  <!-- LOGIN / SIGNUP -->
+  <div id="authBox" class="card">
+    <input id="name" placeholder="Name">
+    <input id="email" placeholder="Email">
+    <input id="password" type="password" placeholder="Password">
+    <input id="self" placeholder="Self Contact">
+    <input id="parent" placeholder="Parent Contact">
+    <input id="alternate" placeholder="Alternate Contact">
+    <input id="contacts" placeholder="Other contacts (comma separated)">
+    <button onclick="signup()">Create Account</button>
+    <button onclick="login()">Login</button>
+  </div>
 
-<!-- PODCAST -->
-<div id="podcastBox" style="display:none;">
-  <h3>🎙️ Live Podcast Running</h3>
-  <input id="speech" placeholder="Type simulated speech">
-  <button onclick="checkKeyword()">Send</button>
-  <button onclick="stopPodcast()">Stop Podcast</button>
-  <div id="map" style="height:300px;margin-top:15px;"></div>
+  <!-- PODCAST -->
+  <div id="podcastBox" class="card" style="display:none;">
+    <h3>🎙️ Live Podcast Running</h3>
+    <input id="speech" placeholder="Type simulated speech">
+    <button onclick="checkKeyword()">Send</button>
+    <button onclick="stopPodcast()">Stop Podcast</button>
+    <div id="map"></div>
+  </div>
+
 </div>
 
 <script src="app.js"></script>
