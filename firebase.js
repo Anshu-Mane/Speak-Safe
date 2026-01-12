@@ -50,3 +50,18 @@ export async function signup(
     alert(error.message);
   }
 }
+
+// ---------------- LOGIN ----------------
+export async function login(email, password) {
+  try {
+    await signInWithEmailAndPassword(auth, email, password);
+
+    document.getElementById("authBox").style.display = "none";
+    document.getElementById("podcastBox").style.display = "block";
+
+    startLocation(); // your function
+
+  } catch (error) {
+    alert(error.message);
+  }
+}
