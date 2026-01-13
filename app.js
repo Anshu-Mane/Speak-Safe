@@ -1,40 +1,46 @@
 console.log("Speak Safe prototype running");
 
 // ---------- LOCATION ----------
-let currentLat = null;
-let currentLng = null;
+let map;
+let marker;
+let currentLat = 19.0760; // fallback (Mumbai)
+let currentLng = 72.8777;
 let silenceTimer = null;
 
-function startLocation() {
-  if (!navigator.geolocation) {
+// Called automatically by Google Maps callback
+window.initMap = () => {
+  map = new google.maps.Map(document.getElementById("map"), {
+    zoom: 15,
+    center: { lat: currentLat, lng: currentLng }
+  });
+
+  marker = new google.maps.Marker({
+    position: { lat: currentLat, lng: currentLng },
+    map,
+    title: "User Location"
+  });
+
+  // Try to get live location
+  if (navigator.geolocation) {
+    navigator.geolocation.getCurrentPosition(
+      (pos) => {
+        currentLat = pos.coords.latitude;
+        currentLng = pos.coords.longitude;
+
+        const userPos = { lat: currentLat, lng: currentLng };
+
+        map.setCenter(userPos);
+        marker.setPosition(userPos);
+      },
+      () => {
+        alert("Location denied. Showing default location.");
+      }
+    );
+  } else {
     alert("Geolocation not supported");
-    return;
   }
+};
 
-  navigator.geolocation.getCurrentPosition(
-    (pos) => {
-      currentLat = pos.coords.latitude;
-      currentLng = pos.coords.longitude;
-
-      const map = new google.maps.Map(
-        document.getElementById("map"),
-        {
-          zoom: 15,
-          center: { lat: currentLat, lng: currentLng }
-        }
-      );
-
-      new google.maps.Marker({
-        position: { lat: currentLat, lng: currentLng },
-        map,
-        title: "User Location"
-      });
-    },
-    () => alert("Location permission denied")
-  );
-}
-
-startLocation();
 
 // ---------- PODCAST ----------
 const podcast = document.getElementById("podcast");
