@@ -57,8 +57,8 @@ function stopPodcast() {
 
   // ONLY open safety check window
   window.open("stop-check.html", "_blank", "width=420,height=520");
-
 }
+
 
 /* ---------------- SILENCE DETECTION ---------------- */
 function monitorSilence() {
