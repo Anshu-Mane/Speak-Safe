@@ -14,8 +14,22 @@ header {
 }
 
 .logo {
-  font-size:20px;
-  font-weight:bold;
+  font-size: 20px;
+  font-weight: bold;
+  color: #ffffff; /* Makes "Speak" white */
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.safe-text {
+  color: #34c264; /* Makes "Safe" a vibrant green */
+}
+
+.nav-logo {
+  width: 35px;
+  height: 35px;
+  object-fit: contain;
 }
 
 main {
@@ -78,20 +92,11 @@ p {
   cursor: pointer;
   pointer-events: auto;
 }
-/* Container for the logo and text */
-/*.logo {
-  display: flex;
-  align-items: center;
-  justify-content: center; /* Centers the logo in the header */
-  /*gap: 10px;               /* Space between image and text */
-  /*font-weight: bold;
-  font-size: 20px;
-}*/
 
 /* The actual logo image size control */
 .nav-logo {
-  width: 40px;             /* Adjust this size to fit your header */
-  height: 40px;            /* Keep it square for the icon look */
+  width: 60px;             /* Adjust this size to fit your header */
+  height: 60px;            /* Keep it square for the icon look */
   object-fit: contain;     /* Prevents stretching */
   border-radius: 8px;      /* Optional: matches your 'card' style */
 }
