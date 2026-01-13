@@ -56,7 +56,8 @@ function stopPodcast() {
   }
 
   // ONLY open safety check window
-  window.open("./stop-check.html", "_blank", "width=420,height=520");
+  window.open("stop-check.html", "_blank", "width=420,height=520");
+
 }
 
 /* ---------------- SILENCE DETECTION ---------------- */
@@ -121,10 +122,8 @@ function triggerAlert(reason) {
       place + "\n" +
       "Coordinates: " + coords;
 
-    window.open(
-      `alert.html?msg=${encodeURIComponent(message)}`,
-      "_blank",
-      "width=420,height=520"
+    window.open(`alert.html?msg=${encodeURIComponent(message)}`, "_blank", "width=420,height=520");
+
     );
   });
 }
