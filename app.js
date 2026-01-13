@@ -55,7 +55,7 @@ function stopPodcast() {
     audio.currentTime = 0;
   }
 
-  window.open("stop-check.html", "_blank", "width=420,height=520");
+  window.open("stop_check.html", "_blank", "width=420,height=520");
 }
 
 /* ---------------- SILENCE DETECTION ---------------- */
