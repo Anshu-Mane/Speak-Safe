@@ -51,6 +51,21 @@ function stopPodcast() {
     triggerEmergencyAlert("User said they are NOT safe");
   }
 }
+function triggerEmergencyAlert(reason) {
+  alert(
+    "🚨 EMERGENCY ALERT 🚨\n" +
+    reason +
+    "\nLocation is being shared with emergency contacts."
+  );
+
+  // Later: integrate Firebase / SMS / WhatsApp / Maps
+  console.log("ALERT TRIGGERED:", reason);
+}
+
+function resetDashboard() {
+  console.log("Session reset");
+  // Optional: reset UI state here later
+}
 
 
 // Silence detection (10 sec)
