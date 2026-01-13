@@ -14,10 +14,14 @@
   </style>
 </head>
 <body>
+  <h2>🚨 Emergency Alert</h2>
+  <p id="alertText"></p>
 
-<h2>🚨 Alert Triggered</h2>
-<p>User did not respond.</p>
-<p>Location is being shared<br>with trusted contacts.</p>
-
+  <script>
+    const params = new URLSearchParams(window.location.search);
+    const msg = params.get("msg");
+    document.getElementById("alertText").innerText =
+      msg || "Alert triggered. Location shared.";
+  </script>
 </body>
 </html>

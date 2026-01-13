@@ -1,4 +1,4 @@
-// Speak-Safe Frontend Prototype Logic (Stable + Stop Button)
+// Speak-Safe Frontend Prototype Logic (Keyword FIXED)
 
 let audio = document.getElementById("podcastAudio");
 let silenceTimer = null;
@@ -7,7 +7,7 @@ let speechBuffer = "";
 let alertTriggered = false;
 let podcastRunning = false;
 
-// Start fake podcast
+// Start podcast
 function startPodcast() {
   if (podcastRunning) return;
 
@@ -16,14 +16,12 @@ function startPodcast() {
   speechBuffer = "";
   lastInteraction = Date.now();
 
-  audio.play().catch(() => {
-    console.log("Audio blocked until user interaction");
-  });
+  audio.play().catch(() => {});
 
   monitorSilence();
 }
 
-// Stop podcast manually (safe stop)
+// Stop podcast manually
 function stopPodcast() {
   podcastRunning = false;
   clearInterval(silenceTimer);
@@ -31,7 +29,7 @@ function stopPodcast() {
   speechBuffer = "";
 }
 
-// Monitor silence (10 seconds)
+// Silence detection (10 sec)
 function monitorSilence() {
   silenceTimer = setInterval(() => {
     if (
@@ -44,37 +42,45 @@ function monitorSilence() {
   }, 1000);
 }
 
-// Simulated speech via typing
+// Simulated speech (typing)
 document.addEventListener("keydown", (e) => {
   if (!podcastRunning || alertTriggered) return;
 
   lastInteraction = Date.now();
 
+  // Only capture real characters
   if (e.key.length === 1) {
     speechBuffer += e.key.toLowerCase();
   }
 
-  detectKeyword();
+  // Check keyword when space / enter is pressed
+  if (e.key === " " || e.key === "Enter") {
+    detectKeyword();
+    speechBuffer = "";
+  }
 });
 
-// Keyword detection
+// Keyword detection (RELIABLE)
 function detectKeyword() {
-  const keywords = ["help", "code red", "danger", "run"];
+  const text = speechBuffer.trim();
 
-  for (let word of keywords) {
-    if (speechBuffer.includes(word)) {
-      triggerAlert(`Keyword detected: ${word}`);
-      break;
+  const keywords = {
+    "help": "HELP",
+    "run": "RUN",
+    "danger": "DANGER",
+    "code red": "CODE RED"
+  };
+
+  for (let key in keywords) {
+    if (text.includes(key)) {
+      triggerAlert(`User said "${keywords[key]}". Location shared.`);
+      return;
     }
-  }
-
-  if (speechBuffer.length > 100) {
-    speechBuffer = speechBuffer.slice(-50);
   }
 }
 
-// Trigger alert ONLY ONCE
-function triggerAlert(reason) {
+// Trigger alert ONCE
+function triggerAlert(message) {
   if (alertTriggered) return;
 
   alertTriggered = true;
@@ -82,14 +88,10 @@ function triggerAlert(reason) {
   clearInterval(silenceTimer);
   audio.pause();
 
-  console.log("ALERT:", reason);
-
+  // Pass message to alert window
   window.open(
-    "alert.html",
+    `alert.html?msg=${encodeURIComponent(message)}`,
     "_blank",
-    "width=400,height=500"
+    "width=420,height=520"
   );
 }
-
-
-
