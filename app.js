@@ -1,8 +1,9 @@
-console.log("Speak-Safe prototype running");
+console.log("Speak Safe prototype running");
 
-// ---------- LOCATION + MAP ----------
+// ---------- LOCATION ----------
 let currentLat = null;
 let currentLng = null;
+let silenceTimer = null;
 
 function startLocation() {
   if (!navigator.geolocation) {
@@ -25,60 +26,79 @@ function startLocation() {
 
       new google.maps.Marker({
         position: { lat: currentLat, lng: currentLng },
-        map: map,
-        title: "You are here"
+        map,
+        title: "User Location"
       });
     },
-    () => alert("Location access denied")
+    () => alert("Location permission denied")
   );
 }
 
-// Start location immediately
 startLocation();
 
+// ---------- PODCAST ----------
+const podcast = document.getElementById("podcast");
+
+window.startPodcast = () => {
+  podcast.play();
+  alert("Fake podcast call started 🎧");
+  startSilenceTimer();
+};
+
 // ---------- KEYWORD DETECTION ----------
-function checkKeyword() {
-  const text = document
-    .getElementById("speech")
-    .value
-    .toLowerCase();
+window.checkKeyword = () => {
+  const text = document.getElementById("speech").value.toLowerCase();
+
+  resetSilenceTimer();
 
   if (
     text.includes("help") ||
-    text.includes("red") ||
-    text.includes("send")
+    text.includes("danger") ||
+    text.includes("code-red") ||
+    text.includes("run")
   ) {
     sendAlert();
   } else {
-    alert("Friend: Are you almost here?");
+    alert("Friend: Talk normally, I’m listening 🙂");
   }
+};
+
+// ---------- SILENCE DETECTION ----------
+function startSilenceTimer() {
+  silenceTimer = setTimeout(() => {
+    alert("🚨 Silence detected");
+    sendAlert();
+  }, 180000); // 3 minutes
 }
 
-// ---------- ALERT SIMULATION ----------
+function resetSilenceTimer() {
+  clearTimeout(silenceTimer);
+  startSilenceTimer();
+}
+
+// ---------- ALERT ----------
 function sendAlert() {
-  if (currentLat === null || currentLng === null) {
-    alert("Location not available yet");
+  if (!currentLat || !currentLng) {
+    alert("Location not available");
     return;
   }
 
-  const mapLink =
-    `https://maps.google.com/?q=${currentLat},${currentLng}`;
+  const mapLink = `https://maps.google.com/?q=${currentLat},${currentLng}`;
 
   alert(
-    "🚨 ALERT TRIGGERED\n\n" +
-    "Location shared with trusted contacts\n\n" +
-    mapLink
+    "🚨 EMERGENCY ALERT\n\n" +
+    "Live location shared with contacts\n\n" +
+    mapLink +
+    "\n\nEmergency number dialed 📞"
   );
 }
 
-// ---------- STOP PODCAST ----------
-function stopPodcast() {
+// ---------- END CALL ----------
+window.stopPodcast = () => {
+  podcast.pause();
+  podcast.currentTime = 0;
+
   const safe = confirm("Have you reached safely?");
   if (!safe) sendAlert();
-  else alert("Glad you’re safe 💚");
-}
-
-// Expose functions to HTML
-window.checkKeyword = checkKeyword;
-window.stopPodcast = stopPodcast;
-
+  else alert("Session ended. Stay safe 💚");
+};
