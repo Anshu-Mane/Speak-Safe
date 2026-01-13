@@ -14,22 +14,8 @@ header {
 }
 
 .logo {
-  font-size: 20px;
-  font-weight: bold;
-  color: #ffffff; /* Makes "Speak" white */
-  display: flex;
-  align-items: center;
-  gap: 8px;
-}
-
-.safe-text {
-  color: #34c264; /* Makes "Safe" a vibrant green */
-}
-
-.nav-logo {
-  width: 35px;
-  height: 35px;
-  object-fit: contain;
+  font-size:20px;
+  font-weight:bold;
 }
 
 main {
