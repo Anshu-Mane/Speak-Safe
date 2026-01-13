@@ -1,65 +1,27 @@
-<!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
+  <title>Emergency Alert</title>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Speak Safe - Emergency Alert</title>
   <style>
     body {
-      background: #0a0f1c;
-      color: white;
-      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-      text-align: center;
-      padding: 40px;
+      background:#0a0f1c;
+      color:white;
+     font-family:Arial;
+      text-align:center;
+      padding:40px;
     }
-    
-    /* Logo styling */
-    .app-logo {
-      width: 120px; /* Adjust size as needed */
-      height: auto;
-      margin-bottom: 20px;
-      border-radius: 20px; /* Optional: rounds the corners of your logo */
-    }
-
-    h1 {
-      font-size: 24px;
-      margin-bottom: 5px;
-      letter-spacing: 1px;
-    }
-
-    h2 { 
-      color: #ff4d4d; 
-      font-size: 22px;
-      margin-top: 20px;
-    }
-
-    #alertText {
-      font-size: 18px;
-      background: rgba(255, 77, 77, 0.1);
-      padding: 20px;
-      border-radius: 10px;
-      border: 1px solid #ff4d4d;
-      display: inline-block;
-      margin-top: 15px;
-    }
+    h2 { color:#ff4d4d; }
   </style>
 </head>
 <body>
-
-  <img src="Logo.png" alt="Speak Safe Logo" class="app-logo">
-  
-  <h1>SPEAK <span style="color:#4dff88">SAFE</span></h1>
-
-  <h2>&#128680; Emergency Alert</h2>
-  
+  <h2>🚨 Emergency Alert</h2>
   <p id="alertText"></p>
 
   <script>
     const params = new URLSearchParams(window.location.search);
     const msg = params.get("msg");
-    // Ensure the text remains safe and displays properly
     document.getElementById("alertText").innerText =
-      msg || "Alert triggered. Location shared with emergency contacts.";
+      msg || "Alert triggered. Location shared.";
   </script>
 </body>
 </html>

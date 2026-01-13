@@ -78,3 +78,25 @@ p {
   cursor: pointer;
   pointer-events: auto;
 }
+/* Container for the logo and text */
+.logo {
+  display: flex;
+  align-items: center;
+  justify-content: center; /* Centers the logo in the header */
+  gap: 10px;               /* Space between image and text */
+  font-weight: bold;
+  font-size: 20px;
+}
+
+/* The actual logo image size control */
+.nav-logo {
+  width: 40px;             /* Adjust this size to fit your header */
+  height: 40px;            /* Keep it square for the icon look */
+  object-fit: contain;     /* Prevents stretching */
+  border-radius: 8px;      /* Optional: matches your 'card' style */
+}
+
+/* Optional: Style for the "Speak-Safe" text next to logo */
+.logo span {
+  color: white;
+}
