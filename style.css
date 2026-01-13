@@ -1,7 +1,7 @@
 body {
   margin: 0;
   font-family: "Segoe UI Emoji", "Apple Color Emoji",
-               "Noto Color Emoji", system-ui, sans-serif;
+               "Noto Color Emoji", system-ui, Arial, sans-serif;
   background: radial-gradient(circle, #0f172a, #020617);
   color: white;
   text-align: center;

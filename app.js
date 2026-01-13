@@ -23,11 +23,35 @@ function startPodcast() {
 
 // Stop podcast manually
 function stopPodcast() {
-  podcastRunning = false;
-  clearInterval(silenceTimer);
-  audio.pause();
-  speechBuffer = "";
+  // Stop audio
+  podcastAudio.pause();
+  podcastAudio.currentTime = 0;
+
+  // Stop voice recognition if running
+  if (recognition) {
+    recognition.stop();
+  }
+
+  // Question 1
+  const reached = confirm("Have you reached safely?");
+
+  if (reached) {
+    alert("Thank you for using Speak-Safe 💙\nSession ended safely.");
+    resetDashboard();
+    return;
+  }
+
+  // Question 2
+  const safe = confirm("Are you safe right now?");
+
+  if (safe) {
+    alert("Glad you're safe. Returning to dashboard.");
+    resetDashboard();
+  } else {
+    triggerEmergencyAlert("User said they are NOT safe");
+  }
 }
+
 
 // Silence detection (10 sec)
 function monitorSilence() {
