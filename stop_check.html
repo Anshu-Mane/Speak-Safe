@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <title>Safety Check</title>
+  <style>
+    body {
+      background:#020617;
+      color:white;
+      font-family:Arial, sans-serif;
+      text-align:center;
+      padding:40px;
+    }
+    h2 { margin-bottom:20px; }
+    button {
+      padding:12px 24px;
+      margin:10px;
+      border:none;
+      border-radius:8px;
+      font-size:16px;
+      cursor:pointer;
+    }
+    .yes { background:#22c55e; color:black; }
+    .no { background:#ef4444; color:white; }
+  </style>
+</head>
+<body>
+
+  <h2 id="question">Have you reached safely?</h2>
+
+  <button class="yes" onclick="answerYes()">Yes</button>
+  <button class="no" onclick="answerNo()">No</button>
+
+<script>
+let step = 1;
+
+function answerYes() {
+  if (step === 1) {
+    alert("Thank you for using Speak-Safe 💙\nSession ended safely.");
+    window.close();
+  } else {
+    alert("Glad you're safe.\nReturning to dashboard.");
+    window.close();
+  }
+}
+
+function answerNo() {
+  if (step === 1) {
+    document.getElementById("question").innerText =
+      "Are you safe right now?";
+    step = 2;
+  } else {
+    window.opener.triggerAlert(
+      "User confirmed they are NOT safe. Location shared."
+    );
+    window.close();
+  }
+}
+</script>
+
+</body>
+</html>

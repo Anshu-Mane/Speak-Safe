@@ -1,4 +1,4 @@
-// Speak-Safe Frontend Prototype Logic (Keyword FIXED)
+// Speak-Safe Frontend Prototype Logic (FINAL FIXED)
 
 let audio = document.getElementById("podcastAudio");
 let silenceTimer = null;
@@ -7,7 +7,28 @@ let speechBuffer = "";
 let alertTriggered = false;
 let podcastRunning = false;
 
-// Start podcast
+/* ---------------- LOCATION ---------------- */
+function getLocation(callback) {
+  if (!navigator.geolocation) {
+    callback("Location unavailable", "N/A");
+    return;
+  }
+
+  navigator.geolocation.getCurrentPosition(
+    (pos) => {
+      const lat = pos.coords.latitude.toFixed(4);
+      const lon = pos.coords.longitude.toFixed(4);
+
+      // Prototype-friendly location name
+      const placeName = "Near Main Road / Public Area";
+
+      callback(placeName, `${lat}, ${lon}`);
+    },
+    () => callback("Location unavailable", "N/A")
+  );
+}
+
+/* ---------------- START PODCAST ---------------- */
 function startPodcast() {
   if (podcastRunning) return;
 
@@ -17,58 +38,25 @@ function startPodcast() {
   lastInteraction = Date.now();
 
   audio.play().catch(() => {});
-
   monitorSilence();
 }
 
-// Stop podcast manually
+/* ---------------- STOP PODCAST ---------------- */
 function stopPodcast() {
-  // Stop audio
-  podcastAudio.pause();
-  podcastAudio.currentTime = 0;
+  podcastRunning = false;
+  clearInterval(silenceTimer);
+  audio.pause();
+  audio.currentTime = 0;
 
-  // Stop voice recognition if running
-  if (recognition) {
-    recognition.stop();
-  }
-
-  // Question 1
-  const reached = confirm("Have you reached safely?");
-
-  if (reached) {
-    alert("Thank you for using Speak-Safe 💙\nSession ended safely.");
-    resetDashboard();
-    return;
-  }
-
-  // Question 2
-  const safe = confirm("Are you safe right now?");
-
-  if (safe) {
-    alert("Glad you're safe. Returning to dashboard.");
-    resetDashboard();
-  } else {
-    triggerEmergencyAlert("User said they are NOT safe");
-  }
-}
-function triggerEmergencyAlert(reason) {
-  alert(
-    "🚨 EMERGENCY ALERT 🚨\n" +
-    reason +
-    "\nLocation is being shared with emergency contacts."
+  // Open YES / NO decision window
+  window.open(
+    "stop-check.html",
+    "_blank",
+    "width=420,height=520"
   );
-
-  // Later: integrate Firebase / SMS / WhatsApp / Maps
-  console.log("ALERT TRIGGERED:", reason);
 }
 
-function resetDashboard() {
-  console.log("Session reset");
-  // Optional: reset UI state here later
-}
-
-
-// Silence detection (10 sec)
+/* ---------------- SILENCE DETECTION ---------------- */
 function monitorSilence() {
   silenceTimer = setInterval(() => {
     if (
@@ -81,45 +69,38 @@ function monitorSilence() {
   }, 1000);
 }
 
-// Simulated speech (typing)
+/* ---------------- SIMULATED VOICE (TYPING) ---------------- */
 document.addEventListener("keydown", (e) => {
   if (!podcastRunning || alertTriggered) return;
 
   lastInteraction = Date.now();
 
-  // Only capture real characters
   if (e.key.length === 1) {
     speechBuffer += e.key.toLowerCase();
   }
 
-  // Check keyword when space / enter is pressed
   if (e.key === " " || e.key === "Enter") {
     detectKeyword();
     speechBuffer = "";
   }
 });
 
-// Keyword detection (RELIABLE)
+/* ---------------- KEYWORD DETECTION ---------------- */
 function detectKeyword() {
   const text = speechBuffer.trim();
 
-  const keywords = {
-    "help": "HELP",
-    "run": "RUN",
-    "danger": "DANGER",
-    "code red": "CODE RED"
-  };
+  const keywords = ["help", "run", "danger", "code red"];
 
-  for (let key in keywords) {
-    if (text.includes(key)) {
-      triggerAlert(`User said "${keywords[key]}". Location shared.`);
+  for (let word of keywords) {
+    if (text.includes(word)) {
+      triggerAlert(`User said "${word.toUpperCase()}"`);
       return;
     }
   }
 }
 
-// Trigger alert ONCE
-function triggerAlert(message) {
+/* ---------------- ALERT (ONCE ONLY) ---------------- */
+function triggerAlert(reason) {
   if (alertTriggered) return;
 
   alertTriggered = true;
@@ -127,10 +108,22 @@ function triggerAlert(message) {
   clearInterval(silenceTimer);
   audio.pause();
 
-  // Pass message to alert window
-  window.open(
-    `alert.html?msg=${encodeURIComponent(message)}`,
-    "_blank",
-    "width=420,height=520"
-  );
+  getLocation((place, coords) => {
+    const message =
+      "🚨 EMERGENCY ALERT 🚨\n\n" +
+      reason + "\n\n" +
+      "📍 Location:\n" +
+      place + "\n" +
+      "Coordinates: " + coords;
+
+    window.open(
+      `alert.html?msg=${encodeURIComponent(message)}`,
+      "_blank",
+      "width=420,height=520"
+    );
+  });
 }
+
+/* ---------------- EXPOSE TO HTML ---------------- */
+window.startPodcast = startPodcast;
+window.stopPodcast = stopPodcast;
