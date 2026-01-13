@@ -23,21 +23,30 @@
   <div class="container">
     <h1 class="title">Speak Safe</h1>
 
-    <div class="card">
-      <h3>🎙️ Fake Podcast Call</h3>
+    <!-- CALL SCREEN -->
+<div class="card" id="callScreen">
+  <h3>🎙️ Fake Podcast Call</h3>
 
-      <!-- Pre-recorded podcast -->
-      <audio id="podcast" src="podcast.mp3" loop></audio>
+  <audio id="podcast" src="podcast.mp3" loop></audio>
 
-      <button class="call-btn" onclick="startPodcast()">📞 Start Call</button>
+  <button class="call-btn" onclick="startPodcast()">📞 Start Call</button>
 
-      <input id="speech" placeholder="Type simulated speech...">
+  <input id="speech" placeholder="Type simulated speech...">
 
-      <button class="action-btn" onclick="checkKeyword()">Send Speech</button>
-      <button class="action-btn" onclick="stopPodcast()">End Call</button>
+  <button class="action-btn" onclick="checkKeyword()">Send Speech</button>
+  <button class="action-btn" onclick="endCall()">End Call</button>
 
-      <div id="map"></div>
-    </div>
+  <div id="map"></div>
+</div>
+
+<!-- STATUS SCREEN (NEW) -->
+<div class="card" id="statusScreen" style="display:none;">
+  <h3>🛡️ Safety Status</h3>
+  <p id="statusMessage"></p>
+
+  <button class="action-btn" onclick="goDashboard()">Go to Dashboard</button>
+</div>
+
   </div>
 
   <!-- Main JS -->
