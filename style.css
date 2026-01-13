@@ -1,4 +1,9 @@
 body {
+  font-family: "Segoe UI Emoji", "Apple Color Emoji",
+               "Noto Color Emoji", Arial, sans-serif;
+}
+
+body {
   margin:0;
   font-family:Arial, sans-serif;
   background:radial-gradient(circle, #0f172a, #020617);
