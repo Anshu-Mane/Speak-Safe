@@ -2,84 +2,44 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <title>Speak-Safe</title>
+  <title>Speak Safe</title>
 
   <!-- Google Font -->
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@600&display=swap" rel="stylesheet">
 
-  <style>
-    body {
-      margin: 0;
-      height: 100vh;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      background: #f2f4f8;
-      font-family: Arial, sans-serif;
-    }
-
-    .container {
-      width: 100%;
-      max-width: 420px;
-      text-align: center;
-    }
-
-    .title {
-      font-family: 'Poppins', sans-serif;
-      color: navy;
-      font-size: 36px;
-      margin-bottom: 25px;
-    }
-
-    .card {
-      background: white;
-      padding: 25px;
-      border-radius: 8px;
-      box-shadow: 0 4px 12px rgba(0,0,0,0.1);
-    }
-
-    input, button {
-      width: 100%;
-      padding: 10px;
-      margin: 8px 0;
-    }
-
-    button {
-      background-color: #1f3c88;
-      color: white;
-      border: none;
-      cursor: pointer;
-    }
-
-    #map {
-      height: 250px;
-      margin-top: 15px;
-    }
-  </style>
+  <!-- External CSS -->
+  <link rel="stylesheet" href="style.css">
 
   <!-- Google Maps -->
-  <script src="https://maps.googleapis.com/maps/api/js?key=YOUR_GOOGLE_MAPS_API_KEY"></script>
+  <script src="https://maps.googleapis.com/maps/api/js?key=YOUR_REAL_GOOGLE_MAPS_KEY"></script>
 </head>
 
 <body>
-  <div class="container">
 
-    <h1 class="title">Speak-Safe</h1>
+  <div class="container">
+    <h1 class="title">Speak Safe</h1>
 
     <div class="card">
-      <h3>🎙️ Fake Podcast Running</h3>
+      <h3>🎙️ Fake Podcast Call</h3>
 
-      <input id="speech" placeholder="Type simulated speech">
+      <!-- Pre-recorded podcast -->
+      <audio id="podcast" src="podcast.mp3" loop></audio>
 
-      <button onclick="checkKeyword()">Send</button>
-      <button onclick="stopPodcast()">Stop Podcast</button>
+      <button class="call-btn" onclick="startPodcast()">📞 Start Call</button>
+
+      <input id="speech" placeholder="Type simulated speech...">
+
+      <button class="action-btn" onclick="checkKeyword()">Send Speech</button>
+      <button class="action-btn" onclick="stopPodcast()">End Call</button>
 
       <div id="map"></div>
     </div>
-
   </div>
 
-  <script src="app.js"></script>
+  <!-- Main JS -->
+  <script type="module" src="app.js"></script>
+
 </body>
 </html>
+
 
