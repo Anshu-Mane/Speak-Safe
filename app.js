@@ -100,11 +100,21 @@ function sendAlert() {
 }
 
 // ---------- END CALL ----------
-window.stopPodcast = () => {
+window.endCall = () => {
   podcast.pause();
   podcast.currentTime = 0;
 
+  document.getElementById("callScreen").style.display = "none";
+  document.getElementById("statusScreen").style.display = "block";
+
   const safe = confirm("Have you reached safely?");
+
+  const msg = safe
+    ? "✅ You are marked safe. Session ended successfully."
+    : "🚨 Help request active. Sharing live location with contacts.";
+
+  document.getElementById("statusMessage").innerText = msg;
+
   if (!safe) sendAlert();
-  else alert("Session ended. Stay safe 💚");
 };
+
