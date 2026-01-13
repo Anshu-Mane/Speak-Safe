@@ -79,19 +79,19 @@ p {
   pointer-events: auto;
 }
 /* Container for the logo and text */
-.logo {
+/*.logo {
   display: flex;
   align-items: center;
   justify-content: center; /* Centers the logo in the header */
-  gap: 10px;               /* Space between image and text */
-  font-weight: bold;
+  /*gap: 10px;               /* Space between image and text */
+  /*font-weight: bold;
   font-size: 20px;
-}
+}*/
 
 /* The actual logo image size control */
 .nav-logo {
-  width: 20px;             /* Adjust this size to fit your header */
-  height: 20px;            /* Keep it square for the icon look */
+  width: 30px;             /* Adjust this size to fit your header */
+  height: 30px;            /* Keep it square for the icon look */
   object-fit: contain;     /* Prevents stretching */
   border-radius: 8px;      /* Optional: matches your 'card' style */
 }
