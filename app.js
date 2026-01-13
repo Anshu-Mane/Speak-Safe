@@ -55,10 +55,8 @@ function stopPodcast() {
     audio.currentTime = 0;
   }
 
-  // ONLY open safety check window
   window.open("stop-check.html", "_blank", "width=420,height=520");
 }
-
 
 /* ---------------- SILENCE DETECTION ---------------- */
 function monitorSilence() {
@@ -92,7 +90,6 @@ document.addEventListener("keydown", (e) => {
 /* ---------------- KEYWORD DETECTION ---------------- */
 function detectKeyword() {
   const text = speechBuffer.trim();
-
   const keywords = ["help", "run", "danger", "code red"];
 
   for (let word of keywords) {
@@ -122,8 +119,10 @@ function triggerAlert(reason) {
       place + "\n" +
       "Coordinates: " + coords;
 
-    window.open(`alert.html?msg=${encodeURIComponent(message)}`, "_blank", "width=420,height=520");
-
+    window.open(
+      `alert.html?msg=${encodeURIComponent(message)}`,
+      "_blank",
+      "width=420,height=520"
     );
   });
 }
