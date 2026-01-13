@@ -1,58 +1,36 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <title>Speak Safe</title>
-
-  <!-- Google Font -->
-  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@600&display=swap" rel="stylesheet">
-
-  <!-- External CSS -->
+  <title>Speak-Safe</title>
   <link rel="stylesheet" href="style.css">
-
-  <!-- Google Maps -->
-  <script
-  src="https://maps.googleapis.com/maps/api/js?key=YOUR_REAL_API_KEY&callback=initMap"
-  async
-  defer>
-</script>
 </head>
 
 <body>
 
-  <div class="container">
-    <h1 class="title">Speak Safe</h1>
+<header>
+  <div class="logo">🛡 Speak-Safe</div>
+</header>
 
-    <!-- CALL SCREEN -->
-<div class="card" id="callScreen">
-  <h3>🎙️ Fake Podcast Call</h3>
+<main>
+  <h1>Feeling <span>Unsafe?</span></h1>
+  <p>Start a fake podcast call. If you need help,<br>just say the word.</p>
 
-  <audio id="podcast" src="podcast.mp3" loop></audio>
+  <!-- MIC BUTTON -->
+  <button id="micBtn" onclick="startPodcast()">🎙</button>
+  <p class="hint">Tap to start live podcast</p>
 
-  <button class="call-btn" onclick="startPodcast()">📞 Start Call</button>
-
-  <input id="speech" placeholder="Type simulated speech...">
-
-  <button class="action-btn" onclick="checkKeyword()">Send Speech</button>
-  <button class="action-btn" onclick="endCall()">End Call</button>
-
-  <div id="map"></div>
-</div>
-
-<!-- STATUS SCREEN (NEW) -->
-<div class="card" id="statusScreen" style="display:none;">
-  <h3>🛡️ Safety Status</h3>
-  <p id="statusMessage"></p>
-
-  <button class="action-btn" onclick="goDashboard()">Go to Dashboard</button>
-</div>
-
+  <!-- FEATURES -->
+  <div class="features">
+    <div class="card">🎤<br>Voice Detection</div>
+    <div class="card">📍<br>GPS Sharing</div>
+    <div class="card">👥<br>Contact Alert</div>
   </div>
+</main>
 
-  <!-- Main JS -->
-  <script type="module" src="app.js"></script>
+<audio id="podcastAudio" loop>
+  <source src="podcast.mp3" type="audio/mpeg">
+</audio>
 
+<script src="app.js"></script>
 </body>
 </html>
-
-

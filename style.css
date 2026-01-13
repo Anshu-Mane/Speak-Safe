@@ -1,73 +1,59 @@
 body {
-  margin: 0;
-  height: 100vh;
-  background: #0b1d3a; /* dark navy blue */
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  font-family: Arial, sans-serif;
+  margin:0;
+  font-family:Arial, sans-serif;
+  background:radial-gradient(circle, #0f172a, #020617);
+  color:white;
+  text-align:center;
 }
 
-.container {
-  width: 100%;
-  max-width: 420px;
-  text-align: center;
+header {
+  padding:20px;
+  text-align:left;
 }
 
-/* Project title */
-.title {
-  font-family: 'Poppins', sans-serif;
-  color: #1e3a8a;
-  font-size: 36px;
-  margin-bottom: 25px;
-  font-weight: 600;
-  font-style: italic;
-  letter-spacing: 0.8px;
+.logo {
+  font-size:20px;
+  font-weight:bold;
+}
+
+main {
+  margin-top:60px;
+}
+
+h1 span {
+  color:#2dd4bf;
+}
+
+p {
+  color:#94a3b8;
+}
+
+#micBtn {
+  width:90px;
+  height:90px;
+  border-radius:50%;
+  border:none;
+  background:#2dd4bf;
+  font-size:30px;
+  margin-top:30px;
+  cursor:pointer;
+}
+
+.hint {
+  margin-top:10px;
+}
+
+.features {
+  display:flex;
+  justify-content:center;
+  gap:20px;
+  margin-top:80px;
 }
 
 .card {
-  background: #ffffff;
-  padding: 25px;
-  border-radius: 12px;
-  box-shadow: 0 10px 25px rgba(0,0,0,0.3);
-}
-
-input {
-  width: 100%;
-  padding: 10px;
-  margin: 10px 0;
-}
-
-/* Call button */
-.call-btn {
-  background: green;
-  color: white;
-  border: none;
-  padding: 12px;
-  width: 100%;
-  margin-bottom: 10px;
-  font-size: 16px;
-  cursor: pointer;
-}
-
-/* Other buttons */
-.action-btn {
-  background: #f5f0dc; /* cream */
-  color: navy;
-  border: none;
-  padding: 10px;
-  width: 100%;
-  margin-top: 8px;
-  cursor: pointer;
-}
-
-#map {
-  height: 250px;
-  margin-top: 15px;
-  border-radius: 8px;
-}
-
-#statusScreen p {
-  font-size: 16px;
-  margin: 15px 0;
+  width:150px;
+  padding:20px;
+  background:#020617;
+  border-radius:15px;
+  color:#94a3b8;
 }
