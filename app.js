@@ -1,11 +1,15 @@
-// Speak-Safe Frontend Prototype Logic (FINAL FIXED)
+// Speak-Safe Frontend Prototype Logic (FINAL STABLE VERSION)
 
-let audio = document.getElementById("podcastAudio");
 let silenceTimer = null;
 let lastInteraction = Date.now();
 let speechBuffer = "";
 let alertTriggered = false;
 let podcastRunning = false;
+
+/* ---------------- AUDIO SAFE ACCESS ---------------- */
+function getAudio() {
+  return document.getElementById("podcastAudio");
+}
 
 /* ---------------- LOCATION ---------------- */
 function getLocation(callback) {
@@ -18,10 +22,7 @@ function getLocation(callback) {
     (pos) => {
       const lat = pos.coords.latitude.toFixed(4);
       const lon = pos.coords.longitude.toFixed(4);
-
-      // Prototype-friendly location name
       const placeName = "Near Main Road / Public Area";
-
       callback(placeName, `${lat}, ${lon}`);
     },
     () => callback("Location unavailable", "N/A")
@@ -37,7 +38,9 @@ function startPodcast() {
   speechBuffer = "";
   lastInteraction = Date.now();
 
-  audio.play().catch(() => {});
+  const audio = getAudio();
+  if (audio) audio.play().catch(() => {});
+
   monitorSilence();
 }
 
@@ -45,10 +48,13 @@ function startPodcast() {
 function stopPodcast() {
   podcastRunning = false;
   clearInterval(silenceTimer);
-  audio.pause();
-  audio.currentTime = 0;
 
-  // Open YES / NO decision window
+  const audio = getAudio();
+  if (audio) {
+    audio.pause();
+    audio.currentTime = 0;
+  }
+
   window.open(
     "stop-check.html",
     "_blank",
@@ -69,7 +75,7 @@ function monitorSilence() {
   }, 1000);
 }
 
-/* ---------------- SIMULATED VOICE (TYPING) ---------------- */
+/* ---------------- SIMULATED VOICE (KEYBOARD) ---------------- */
 document.addEventListener("keydown", (e) => {
   if (!podcastRunning || alertTriggered) return;
 
@@ -106,7 +112,9 @@ function triggerAlert(reason) {
   alertTriggered = true;
   podcastRunning = false;
   clearInterval(silenceTimer);
-  audio.pause();
+
+  const audio = getAudio();
+  if (audio) audio.pause();
 
   getLocation((place, coords) => {
     const message =
@@ -124,6 +132,6 @@ function triggerAlert(reason) {
   });
 }
 
-/* ---------------- EXPOSE TO HTML ---------------- */
+/* ---------------- EXPOSE FUNCTIONS ---------------- */
 window.startPodcast = startPodcast;
 window.stopPodcast = stopPodcast;
