@@ -1,15 +1,12 @@
 body {
+  margin: 0;
   font-family: "Segoe UI Emoji", "Apple Color Emoji",
-               "Noto Color Emoji", Arial, sans-serif;
+               "Noto Color Emoji", system-ui, sans-serif;
+  background: radial-gradient(circle, #0f172a, #020617);
+  color: white;
+  text-align: center;
 }
 
-body {
-  margin:0;
-  font-family:Arial, sans-serif;
-  background:radial-gradient(circle, #0f172a, #020617);
-  color:white;
-  text-align:center;
-}
 
 header {
   padding:20px;
