@@ -67,3 +67,7 @@ input {
   border-radius: 8px;
 }
 
+#statusScreen p {
+  font-size: 16px;
+  margin: 15px 0;
+}
