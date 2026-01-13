@@ -1,120 +1,38 @@
-console.log("Speak Safe prototype running");
+// Speak-Safe Frontend Prototype Logic
 
-// ---------- LOCATION ----------
-let map;
-let marker;
-let currentLat = 19.0760; // fallback (Mumbai)
-let currentLng = 72.8777;
+let audio = document.getElementById("podcastAudio");
 let silenceTimer = null;
+let lastInteraction = Date.now();
 
-// Called automatically by Google Maps callback
-window.initMap = () => {
-  map = new google.maps.Map(document.getElementById("map"), {
-    zoom: 15,
-    center: { lat: currentLat, lng: currentLng }
+// Start fake podcast
+function startPodcast() {
+  audio.play().catch(() => {
+    console.log("Audio play blocked until user interaction");
   });
 
-  marker = new google.maps.Marker({
-    position: { lat: currentLat, lng: currentLng },
-    map,
-    title: "User Location"
-  });
-
-  // Try to get live location
-  if (navigator.geolocation) {
-    navigator.geolocation.getCurrentPosition(
-      (pos) => {
-        currentLat = pos.coords.latitude;
-        currentLng = pos.coords.longitude;
-
-        const userPos = { lat: currentLat, lng: currentLng };
-
-        map.setCenter(userPos);
-        marker.setPosition(userPos);
-      },
-      () => {
-        alert("Location denied. Showing default location.");
-      }
-    );
-  } else {
-    alert("Geolocation not supported");
-  }
-};
-
-
-// ---------- PODCAST ----------
-const podcast = document.getElementById("podcast");
-
-window.startPodcast = () => {
-  podcast.play();
-  alert("Fake podcast call started 🎧");
-  startSilenceTimer();
-};
-
-// ---------- KEYWORD DETECTION ----------
-window.checkKeyword = () => {
-  const text = document.getElementById("speech").value.toLowerCase();
-
-  resetSilenceTimer();
-
-  if (
-    text.includes("help") ||
-    text.includes("danger") ||
-    text.includes("code-red") ||
-    text.includes("run")
-  ) {
-    sendAlert();
-  } else {
-    alert("Friend: Talk normally, I’m listening 🙂");
-  }
-};
-
-// ---------- SILENCE DETECTION ----------
-function startSilenceTimer() {
-  silenceTimer = setTimeout(() => {
-    alert("🚨 Silence detected");
-    sendAlert();
-  }, 180000); // 3 minutes
+  lastInteraction = Date.now();
+  monitorSilence();
 }
 
-function resetSilenceTimer() {
-  clearTimeout(silenceTimer);
-  startSilenceTimer();
+// Monitor silence (10 seconds)
+function monitorSilence() {
+  silenceTimer = setInterval(() => {
+    if (Date.now() - lastInteraction > 10000) {
+      triggerAlert();
+    }
+  }, 1000);
 }
 
-// ---------- ALERT ----------
-function sendAlert() {
-  if (!currentLat || !currentLng) {
-    alert("Location not available");
-    return;
-  }
+// Simulate voice activity (typing = speaking)
+document.addEventListener("keydown", () => {
+  lastInteraction = Date.now();
+});
 
-  const mapLink = `https://maps.google.com/?q=${currentLat},${currentLng}`;
-
-  alert(
-    "🚨 EMERGENCY ALERT\n\n" +
-    "Live location shared with contacts\n\n" +
-    mapLink +
-    "\n\nEmergency number dialed 📞"
-  );
+// Open alert window instead of popup
+function triggerAlert() {
+  clearInterval(silenceTimer);
+  audio.pause();
+  window.open("alert.html", "_blank", "width=400,height=500");
 }
 
-// ---------- END CALL ----------
-window.endCall = () => {
-  podcast.pause();
-  podcast.currentTime = 0;
-
-  document.getElementById("callScreen").style.display = "none";
-  document.getElementById("statusScreen").style.display = "block";
-
-  const safe = confirm("Have you reached safely?");
-
-  const msg = safe
-    ? "✅ You are marked safe. Session ended successfully."
-    : "🚨 Help request active. Sharing live location with contacts.";
-
-  document.getElementById("statusMessage").innerText = msg;
-
-  if (!safe) sendAlert();
-};
 
